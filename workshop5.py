@@ -50,11 +50,11 @@ def guess_random_num_linear(tries, start, stop):
         print("The program is guessing", guess)
         if guess == random_number:
             print("The program has guessed the correct number!")
-            return
+            return True
         tries -= 1
         if tries <= 0:
             print("The program has failed to guess the correct number.")
-            return
+            return False
 
 
 def guess_random_num_binary(tries, start, stop):
@@ -109,6 +109,61 @@ def users_choice():
         else:
             print("\nSorry, that was not a valid selection.  Please try again")
 
+
+def gamble_guess():
+    money_pot = 10
+    round = 1
+    print("Gambling Mode")
+    while True:
+        while True:
+            print(f"Round {round}:")
+            print(f"Your current balance: {money_pot}")
+            bet = input(
+                "Do you think the computer can guess the correct number (y/n)?\t")
+            if bet == 'y':
+                bet = True
+                break
+            elif bet == 'n':
+                bet = False
+                break
+            else:
+                print("Sorry, that is not a valid option.  Please try again.")
+        while True:
+            if money_pot < 10:
+                while True:
+                    bet_amt = int(
+                        input(f"How much do you want to bet, in whole dollar amounts, up to ${money_pot}?\t$"))
+                    if bet_amt > money_pot or bet_amt <= 0:
+                        print(
+                            f"Your bet must be in whole dollar amounts up to ${money_pot}.  Please try again.")
+                    else:
+                        break
+            elif money_pot >= 10:
+                while True:
+                    bet_amt = int(
+                        input(f"How much do you want to bet, in whole dollar amounts, up to $10?\t$"))
+                    if bet_amt > 10 or bet_amt <= 0:
+                        print(
+                            f"Your bet must be in whole dollar amounts up to $10.  Please try again.")
+                    else:
+                        break
+            break
+        round = guess_random_num_linear(5, 0, 10)
+        if round == True and bet == True or round == False and bet == False:
+            money_pot += bet_amt
+        else:
+            money_pot -= bet_amt
+        if money_pot <= 0:
+            print("Sorry, you have lost all your money!")
+            break
+        elif money_pot >= 50:
+            print(
+                "You have passed our maximum jackpot of $50: Game Over!  Thank you for playing!")
+            break
+        else:
+            round += 1
+
+
 # Driver Code Task 1
 # guess_random_number(5, 0, 10)
 
@@ -120,4 +175,7 @@ def users_choice():
 # guess_random_num_binary(5, 0, 100)
 
 # Driver Code Bonus 2
-users_choice()
+# users_choice()
+
+# Driver Code Bonus 4
+gamble_guess()
