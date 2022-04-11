@@ -3,9 +3,31 @@ import random
 
 def guess_random_number(tries, start, stop):
     random_number = random.randint(start, stop)
+    prev_guesses = []
+
     while tries != 0:
         print("Number of tries left:", tries)
         guess = input(f"Guess a number between {start} and {stop}:")
+        is_prev_guess = False
+        if len(prev_guesses) >= 1:
+            lower_bound = 0
+            upper_bound = len(prev_guesses) - 1
+
+            while lower_bound <= upper_bound:
+                pivot = (lower_bound + upper_bound) // 2
+                pivot_value = prev_guesses[pivot]
+
+                if pivot_value == guess:
+                    is_prev_guess = True
+                if pivot_value > guess:
+                    upper_bound = pivot - 1
+                else:
+                    lower_bound = pivot + 1
+        if is_prev_guess == True:
+            print("You have already guessed that number.  Try again")
+            continue
+
+        prev_guesses.append(guess)
         if int(guess) == random_number:
             print("You guessed the correct number!")
             return
