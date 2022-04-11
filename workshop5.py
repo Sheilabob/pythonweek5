@@ -63,8 +63,32 @@ def guess_random_num_binary(tries, start, stop):
             print("Guessing higher!")
 
 
+def users_choice():
+    tries = int(input("How many guesses would you like to allow?\t"))
+    start = int(input("What is the lowest number you would like to include?\t"))
+    stop = int(input("What is the largest number you would like to include?\t"))
+
+    while True:
+        print("\nHow would you like to play?")
+        print("\t1. user guesses")
+        print("\t2. computer guesses using a linear search")
+        print("\t3. Computer guesses using a binary search")
+        print("\t4. Exit")
+        mode = input("Your Selection:\t")
+        if mode == '1':
+            guess_random_number(tries, start, stop)
+        elif mode == '2':
+            guess_random_num_linear(tries, start, stop)
+        elif mode == '3':
+            guess_random_num_binary(tries, start, stop)
+        elif mode == '4':
+            print("Goodbye")
+            return
+        else:
+            print("\nSorry, that was not a valid selection.  Please try again")
+
 # Driver Code Task 1
-guess_random_number(5, 0, 10)
+# guess_random_number(5, 0, 10)
 
 # Driver Code Task 2
 # guess_random_num_linear(5, 0, 10)
@@ -72,3 +96,6 @@ guess_random_number(5, 0, 10)
 
 # Driver Code Task 3
 # guess_random_num_binary(5, 0, 100)
+
+# Driver Code Bonus 2
+users_choice()
